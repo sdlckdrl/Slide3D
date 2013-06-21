@@ -9,14 +9,14 @@ ie,opera등 css3미지원 브라우져에서는 그냥 밀어내는 슬라이드
 
 Code		:
 	
-&ltdiv class="slide"&gt;
-	&ltul&gt;
-		&ltli&gt;2222&lt/li&gt;
-		&ltli&gt;22222222222&lt/li&gt;
-		&ltli&gt;333333333333333&lt/li&gt;
-		&ltli&gt;44444444&lt/li&gt;
-	&lt/ul&gt;
-&lt/div&gt;
+&lt;div class="slide">
+	&lt;ul>
+		&lt;li>2222&lt;/li>
+		&lt;li>22222222222&lt;/li>
+		&lt;li>333333333333333&lt;/li>
+		&lt;li>44444444&lt;/li>
+	&lt;/ul>
+&lt;/div>
 
 기능설명	: 
 - 기본
