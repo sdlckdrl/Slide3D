@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>test</title>
+<style type="text/css">
+.slide2{
+	border: 1px solid red;
+	width: 90%;
+	height:300px;
+}
+.slide2 li{
+background-color: green;
+opacity:0.6;
+}
+</style>
+<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="jquery.transform-0.9.4.min.js"></script>
+<script type="text/javascript" src="jquery.lck.slide3D.js"></script>
+<script type="text/javascript">
+$(function(){
+
+	$(".slide1").slide3D({
+	    speed: 1000,
+	    btnGo: $("#aaa .btngo"),
+	    btnNext : $("#aaa .btnnext"),
+	    btnPrev : $("#aaa .btnprev"),
+	    vertical : true
+  	    //easing : "easeInOutElastic",
+//  	    auto:3000
+	});
+	
+	$(".slide2").slide3D({
+	    speed: 1000,
+	    btnGo: $("#bbb .btngo"),
+	    btnNext : $("#bbb .btnnext"),
+	    btnPrev : $("#bbb .btnprev"),
+	    vertical : false,
+//  	    easing : "easeInOutElastic"
+// 	    auto:3000
+		start : 7
+	});
+	
+});
+</script>
+</head>
+<body>
+<div id="aaa">
+<button class="btnprev">&lt;</button>
+<a href="#" class="btngo"><img src="http://sns.songpa.go.kr/lib/images/main/main_sns_1_on.jpg"" alt="페이스북"></a>
+<a href="#" class="btngo"><img src="http://sns.songpa.go.kr/lib/images/main/main_sns_2_on.jpg" alt="트위터"></a>
+<button class="btnnext">&gt;</button>
+</div>
+	<div class="slide1" style="width:700px;height:407px;">
+	<ul>
+		<li><img src="http://i2.media.daumcdn.net/photo-media/201306/12/citylife/20130612112157568.jpg"/></li>
+		<li><img src="http://i2.media.daumcdn.net/photo-media/201306/12/citylife/20130612112157576.jpg"/></li>
+	</ul>
+	</div>
+	
+	
+<div id="bbb">
+<button class="btnprev">&lt;</button>
+<button class="btngo">1</button>
+<button class="btngo">2</button>
+<button class="btngo">3</button>
+<button class="btngo">4</button>
+<button class="btngo">5</button>
+<button class="btngo">6</button>
+<button class="btngo">7</button>
+<button class="btngo">8</button>
+<button class="btnnext">&gt;</button>
+</div>
+	<div class="slide2">
+	<ul>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>6</li>
+		<li>7</li>
+		<li>8</li>
+	</ul>
+	</div>
+<div id="msg"></div>
+</body>
+</html>
