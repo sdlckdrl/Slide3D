@@ -7,16 +7,16 @@ Slide3D
 ie,opera등 css3미지원 브라우져에서는 그냥 밀어내는 슬라이드로 작동합니다.
 다음 모바일따라한거 ㅋ
 
-HTML		:
+Code		:
 	
-<div class="slide">
-	<ul>
-		<li>2222</li>
-		<li>22222222222</li>
-		<li>333333333333333</li>
-		<li>44444444</li>
-	</ul>
-</div>
+&ltdiv class="slide"&gt;
+	&ltul&gt;
+		&ltli&gt;2222&lt/li&gt;
+		&ltli&gt;22222222222&lt/li&gt;
+		&ltli&gt;333333333333333&lt/li&gt;
+		&ltli&gt;44444444&lt/li&gt;
+	&lt/ul&gt;
+&lt/div&gt;
 
 기능설명	: 
 - 기본
