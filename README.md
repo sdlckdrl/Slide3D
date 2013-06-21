@@ -9,12 +9,12 @@ ie,opera등 css3미지원 브라우져에서는 그냥 밀어내는 슬라이드
 
 HTML	:	
 &lt;div class="slide"><br>
-	&lt;ul><br>
-		&lt;li>2222&lt;/li><br>
-		&lt;li>22222222222&lt;/li><br>
-		&lt;li>333333333333333&lt;/li><br>
-		&lt;li>44444444&lt;/li><br>
-	&lt;/ul><br>
+    &lt;ul><br>
+        &lt;li>2222&lt;/li><br>
+        &lt;li>22222222222&lt;/li><br>
+        &lt;li>333333333333333&lt;/li><br>
+        &lt;li>44444444&lt;/li><br>
+    &lt;/ul><br>
 &lt;/div>
 
 기능설명	: 
