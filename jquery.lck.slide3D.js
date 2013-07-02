@@ -80,7 +80,8 @@ $.fn.slide3D = function(o) {
         btnPrev: null,
         btnNext: null,
         start: 0,
-        vertical: false
+        vertical: false,
+		useCube : true 
     }, o || {});
 
     return this.each(function() {
@@ -540,7 +541,7 @@ $.fn.slide3D = function(o) {
     		}
     	};
 
-    	if($.browser.webkit || $.browser.safari || $.browser.mozilla){
+    	if(o.useCube && ($.browser.webkit || $.browser.safari || $.browser.mozilla)){
     		browser = html5Browser;
     	}else{
     		browser = otherBrowser;
