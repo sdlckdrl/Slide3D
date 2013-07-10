@@ -75,7 +75,6 @@ $.fn.slide3D = function(o) {
         forward : false,
         speed: 200,
         easing: null,
-        
         btnGo: null,
         btnPrev: null,
         btnNext: null,
