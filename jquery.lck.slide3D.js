@@ -198,17 +198,20 @@ $.fn.slide3D = function(o) {
             		return;
             	isMove = false;
             	if(20 < move){
-            		html5Browser.rotateCalc();
+            		browser.rotateCalc();
             		$ul.animate({
 	            		rotateY: (o.vertical?0:degree)+'deg',
 	            		rotateX: (o.vertical?-degree:0)+'deg'
-	            	},300, o.easing, html5Browser.endCheck);
+	            	},300, o.easing, browser.endCheck);
             	}else{
         			$ul.animate({
 	            		rotateY: (o.vertical?0:degree)+'deg',
 	            		rotateX: (o.vertical?-degree:0)+'deg'
                 	},300);
             	}
+				if(o.auto){
+					browser.cycle();
+				}
     		},
     		resizeWindow : function(){
             	width = $div.innerWidth();
@@ -267,12 +270,12 @@ $.fn.slide3D = function(o) {
 	    			if(n > this.v.farr){
 	    				o.forward = false;
 	    				for ( var i = this.v.farr; i < n; i++) {
-	                		html5Browser.rotateCalc();
+	                		browser.rotateCalc();
 	        			}
 	    			}else if(n < this.v.farr+1){
 	    				o.forward = true;
 	    				for ( var i = this.v.farr; i > n; i--) {
-	                		html5Browser.rotateCalc();
+	                		browser.rotateCalc();
 	    				}
 	    			}
 	    			$ul.animate({
@@ -281,41 +284,37 @@ $.fn.slide3D = function(o) {
 	            		scale: [0.1, 0.1]
 	            	},o.speed/2).animate({
 	            		scale: [0.75, 0.75]
-	            	},o.speed/2, html5Browser.endCheck);
+	            	},o.speed/2, browser.endCheck);
     			}else{
         			$ul.animate({
 	        			rotateY: (o.vertical)?0:degree+"deg",
 	    	    	    rotateX: (o.vertical)?-degree:0+"deg"
-                	},o.speed, o.easing, html5Browser.endCheck);
+                	},o.speed, o.easing, browser.endCheck);
     			}
 				if(o.auto){
-					clearTimeout(timer);
-					timer = setTimeout(function(){
-						html5Browser.rotateCalc();
-						html5Browser.go();
-	            	}, o.auto);
+					browser.cycle();
 				}
     		},
     		first : function(n){
     			if(n > this.v.farr){
     				o.forward = false;
     				for ( var i = this.v.farr; i < n; i++) {
-                		html5Browser.rotateCalc();
+                		browser.rotateCalc();
         			}
     			}else if(n < this.v.farr+1){
     				o.forward = true;
     				for ( var i = this.v.farr; i > n; i--) {
-                		html5Browser.rotateCalc();
+                		browser.rotateCalc();
     				}
     			}
     			$ul.animate({
         			rotateY: (o.vertical)?0:degree+"deg",
     	        	rotateX: (o.vertical)?-degree:0+"deg"
-            	},1, html5Browser.endCheck);
+            	},1, browser.endCheck);
     		},
     		endCheck : function(){
     			if(o.btnGo){
-    				html5Browser.btnChange(html5Browser.v.farr-1);
+    				browser.btnChange(browser.v.farr-1);
     			}
     		},
     		btnChange : function(i){
@@ -324,10 +323,18 @@ $.fn.slide3D = function(o) {
 						$(this).attr("src", $(this).attr("src").replace("_on", "_off"));
 					}).end().end().find("img[src]").eq(i).attr("src", $(o.btnGo).find("img[src]").eq(i).attr("src").replace("_off", "_on"));
 				}else{
-	    			$(o.btnGo).not("eq("+(otherBrowser.v-1)+")").css({"opacity":"0.5"})
+	    			$(o.btnGo).not("eq("+(browser.v-1)+")").css({"opacity":"0.5"})
 	    			.end().eq(i).css({"opacity":"1"});
 				}
-    		}
+    		},
+			cycle : function(){
+				clearTimeout(timer);
+				timer = setTimeout(function(){
+					if($ul.is(":animated") || isMove) return false;
+					browser.rotateCalc();
+					browser.go();
+				}, o.auto);
+			}
     		
     	};
 
@@ -408,15 +415,15 @@ $.fn.slide3D = function(o) {
             		return;
             	isMove = false;
             	if(20 < move){
-            		otherBrowser.rotateCalc();
+            		browser.rotateCalc();
             		if(o.vertical){
             			$ul.animate({
     	            		top: degree+'px'
-    	            	},300, otherBrowser.endCheck);
+    	            	},300, browser.endCheck);
             		}else{
             			$ul.animate({
     	            		left: degree+'px'
-    	            	},300, otherBrowser.endCheck);
+    	            	},300, browser.endCheck);
             		}
             	}else{
             		if(o.vertical){
@@ -429,6 +436,9 @@ $.fn.slide3D = function(o) {
                     	},300);
             		}
             	}
+				if(o.auto){
+					browser.cycle();
+				}
     		},
     		resizeWindow : function(){
     			width = $div.innerWidth();
@@ -440,7 +450,7 @@ $.fn.slide3D = function(o) {
 	    			height: height+"px"
 	        	});
             	if(!o.vertical){
-                	degree = -(width * otherBrowser.v);
+                	degree = -(width * browser.v);
             		$ul.css({left: degree});
             	}
 	        	$ul.css({width: width*$li.size()});
@@ -464,30 +474,26 @@ $.fn.slide3D = function(o) {
         			if(n > this.v){
         				o.forward = false;
         				for ( var i = this.v; i < n; i++) {
-                    		otherBrowser.rotateCalc();
+                    		browser.rotateCalc();
             			}
         			}else if(n < this.v+1){
         				o.forward = true;
         				for ( var i = this.v; i > n; i--) {
-                    		otherBrowser.rotateCalc();
+                    		browser.rotateCalc();
         				}
         			}
     			}
 				if(o.vertical){
         			$ul.animate({
         				top: degree+'px'
-        			}, o.speed, o.easing, otherBrowser.endCheck);
+        			}, o.speed, o.easing, browser.endCheck);
     			}else{
         			$ul.animate({
         				left: degree+'px'
-        			}, o.speed, o.easing, otherBrowser.endCheck);
+        			}, o.speed, o.easing, browser.endCheck);
     			}
 				if(o.auto){
-					clearTimeout(timer);
-					timer = setTimeout(function(){
-						otherBrowser.rotateCalc();
-						otherBrowser.go();
-	            	}, o.auto);
+					browser.cycle();
 				}
     			
     		},
@@ -495,36 +501,36 @@ $.fn.slide3D = function(o) {
     			if(n > this.v){
     				o.forward = false;
     				for ( var i = this.v; i < n; i++) {
-                		otherBrowser.rotateCalc();
+                		browser.rotateCalc();
         			}
     			}else if(n < this.v+1){
     				o.forward = true;
     				for ( var i = this.v; i > n; i--) {
-                		otherBrowser.rotateCalc();
+                		browser.rotateCalc();
     				}
     			}
     			if(o.vertical){
         			$ul.animate({
         				top: degree+'px'
-        			}, 1, otherBrowser.endCheck);
+        			}, 1, browser.endCheck);
     			}else{
         			$ul.animate({
         				left: degree+'px'
-        			}, 1, otherBrowser.endCheck);
+        			}, 1, browser.endCheck);
     			}
     		},
     		endCheck : function(){
-    			if(otherBrowser.v == $li.size()-1){
+    			if(browser.v == $li.size()-1){
 					degree = -liSize;
-					otherBrowser.v = 1;
+					browser.v = 1;
 					$ul.css(animCss, degree);
-				}else if(otherBrowser.v == 0){
+				}else if(browser.v == 0){
 					degree = -(liSize * ($li.size()-2));
-					otherBrowser.v = $li.size()-2;
+					browser.v = $li.size()-2;
 					$ul.css(animCss, degree);
 				}
     			if(o.btnGo){
-    				otherBrowser.btnChange(otherBrowser.v-1);
+    				browser.btnChange(browser.v-1);
     			}
     		},
     		btnChange : function(i){
@@ -534,10 +540,18 @@ $.fn.slide3D = function(o) {
 					})
 					.end().end().find("img[src]").eq(i).attr("src", $(o.btnGo).find("img[src]").eq(i).attr("src").replace("_off", "_on"));
 				}else{
-	    			$(o.btnGo).not("eq("+(otherBrowser.v-1)+")").css({"opacity":"0.5"})
+	    			$(o.btnGo).not("eq("+(browser.v-1)+")").css({"opacity":"0.5"})
 	    			.end().eq(i).css({"opacity":"1"});
 				}
-    		}
+    		},
+			cycle : function(){
+				clearTimeout(timer);
+				timer = setTimeout(function(){
+					if($ul.is(":animated") || isMove) return false;
+					browser.rotateCalc();
+					browser.go();
+				}, o.auto);
+			}
     	};
 
     	if(o.useCube && ($.browser.webkit || $.browser.safari || $.browser.mozilla)){
@@ -578,10 +592,7 @@ $.fn.slide3D = function(o) {
         		browser.go();
         	});
         if(o.auto){
-        	timer = setTimeout(function(){
-        		browser.rotateCalc();
-        		browser.go();
-        	}, o.auto);
+        	browser.cycle();
         }
         
 		function pointerEventToXY(e){
