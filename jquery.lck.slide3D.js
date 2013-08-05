@@ -103,6 +103,7 @@ $.fn.slide3D = function(o) {
     		v : {fview:2, farr:1, rview:0, rarr:$tli.size()-1, curr:1},
 			init : function(){
 		    	$ul.prepend($tli.slice($tli.size()-1).clone()).append($tli.slice(0,1).clone());//앞뒤로 붙여주기
+				if($li.size() <= 1) $ul.prepend($tli.slice($tli.size()-1).clone());//1개이면 4개로 맞춰서 큐브형태를 완성시켜줌
 		    	$ul.children("li:gt(3)").remove();//4개 초과분은 삭제
 		    	$li = $ul.children("li");//바뀐 목록 재설정
 				
