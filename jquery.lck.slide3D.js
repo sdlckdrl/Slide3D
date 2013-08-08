@@ -212,7 +212,11 @@ $.fn.slide3D = function(o) {
             		});
         		}
     		},
-    		DragEnd : function(){
+    		DragEnd : function(e){
+    			if(move>3){	//a href 이벤트 이동시에 안먹히게
+        			var $target = $(e.target).parents("a");
+    				$target.one("click", function(ee){ee.preventDefault();});
+    			}
     			if(!isMove)
             		return;
             	isMove = false;
@@ -440,7 +444,11 @@ $.fn.slide3D = function(o) {
 	        		});
         		}
     		},
-    		DragEnd : function(){
+    		DragEnd : function(e){
+    			if(move>3){	//a href 이벤트 이동시에 안먹히게
+        			var $target = $(e.target).parents("a");
+    				$target.one("click", function(ee){ee.preventDefault();});
+    			}
     			if(!isMove)
             		return;
             	isMove = false;
