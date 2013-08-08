@@ -61,6 +61,12 @@
  *  	start : 3
  *  });
  * 
+ * - 마우스나 터치로 로 드래그 여부
+ *  $(".slide").slide3D({
+ *  	mouseSlide : false,
+ *  	touchSlide : false
+ *  });
+ * 
  * 필수 jQuery plugin	
  * 			: jquery-1.7.2.js
  * 	`		  jquery.transform-0.9.4.min.js 
@@ -73,14 +79,16 @@ $.fn.slide3D = function(o) {
     o = $.extend({
         auto: null,
         forward : false,
-        speed: 200,
+        speed: 300,
         easing: null,
         btnGo: null,
         btnPrev: null,
         btnNext: null,
         start: 0,
         vertical: false,
-		useCube : true 
+		useCube : true,
+		mouseSlide : true,
+		touchSlide : true
     }, o || {});
 
     return this.each(function() {
@@ -143,11 +151,21 @@ $.fn.slide3D = function(o) {
 	                "perspective": (o.vertical?height*2:width*2)+"px"
 	            });
 
-	    		$ul.bind("mousedown touchstart", this.DragStart)
-	            	.bind("mousemove touchmove", this.DragMove)
-	    			.bind("mouseup touchend touchcancel", this.DragEnd);
-	            $ul.bind("mouseleave", this.DragEnd);
-	            $(window).bind("resize orientationchange", this.resizeWindow);
+	            if(o.mouseSlide || o.touchSlide){
+	            	if(o.mouseSlide && o.touchSlide)
+			    		$ul.on("mousedown touchstart", this.DragStart)
+			            	.on("mousemove touchmove", this.DragMove)
+			    			.on("mouseup mouseleave touchend touchcancel", this.DragEnd);
+	            	else if(o.mouseSlide && !o.touchSlide)
+			    		$ul.on("mousedown", this.DragStart)
+		            	.on("mousemove", this.DragMove)
+		    			.on("mouseup mouseleave", this.DragEnd);
+	            	else if(!o.mouseSlide && o.touchSlide)
+			    		$ul.on("touchstart", this.DragStart)
+		            	.on("touchmove", this.DragMove)
+		    			.on("touchend touchcancel", this.DragEnd);
+	            }
+	            $(window).on("resize orientationchange", this.resizeWindow);
     		},
     		DragStart : function(e){
             	if(e.type === 'mousedown'){
@@ -359,11 +377,22 @@ $.fn.slide3D = function(o) {
 	    		$ul.css({position:"relative","z-index": "1",margin: "0", padding: "0", "list-style-type": "none"}).css(sizeCss,ulSize).css(animCss,degree+"px");
 	    		
 	            $div.css({overflow: "hidden", position: "relative", "z-index": "2", left: "0px"});
-	    		$ul.bind("mousedown touchstart", this.DragStart)
-	            	.bind("mousemove touchmove", this.DragMove)
-	    			.bind("mouseup touchend touchcancel", this.DragEnd);
-	            $ul.bind("mouseleave", this.DragEnd);
-	            $(window).bind("resize orientationchange", this.resizeWindow);
+
+	            if(o.mouseSlide || o.touchSlide){
+	            	if(o.mouseSlide && o.touchSlide)
+			    		$ul.on("mousedown touchstart", this.DragStart)
+			            	.on("mousemove touchmove", this.DragMove)
+			    			.on("mouseup mouseleave touchend touchcancel", this.DragEnd);
+	            	else if(o.mouseSlide && !o.touchSlide)
+			    		$ul.on("mousedown", this.DragStart)
+		            	.on("mousemove", this.DragMove)
+		    			.on("mouseup mouseleave", this.DragEnd);
+	            	else if(!o.mouseSlide && o.touchSlide)
+			    		$ul.on("touchstart", this.DragStart)
+		            	.on("touchmove", this.DragMove)
+		    			.on("touchend touchcancel", this.DragEnd);
+	            }
+	            $(window).on("resize orientationchange", this.resizeWindow);
 	    		
     		},
     		DragStart : function(e){
