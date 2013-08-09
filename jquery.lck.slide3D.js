@@ -84,6 +84,7 @@ $.fn.slide3D = function(o) {
         btnGo: null,
         btnPrev: null,
         btnNext: null,
+        btnStop: null,
         start: 0,
         vertical: false,
 		useCube : true,
@@ -628,6 +629,12 @@ $.fn.slide3D = function(o) {
         		o.forward = false;
         		browser.rotateCalc();
         		browser.go();
+        	});
+        if(o.btnStop)
+        	$(o.btnStop).click(function(e) {
+        		e.preventDefault();
+        		e.stopPropagation();
+        		clearTimeout(timer);
         	});
         if(o.auto){
         	browser.cycle();
