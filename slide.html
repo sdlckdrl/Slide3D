@@ -3,17 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <title>test</title>
-<style type="text/css">
-.slide2{
-	border: 1px solid red;
-	width: 90%;
-	height:300px;
-}
-.slide2 li{
-background-color: green;
-opacity:0.6;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="my.css">
 <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="jquery.transform-0.9.4.min.js"></script>
@@ -21,44 +11,132 @@ opacity:0.6;
 <script type="text/javascript" src="my.js"></script>
 </head>
 <body>
-<div id="aaa">
-<button class="btnprev">&lt;</button>
-<a href="#" class="btngo"><img src="http://sns.songpa.go.kr/lib/images/main/main_sns_1_on.jpg"" alt="페이스북"></a>
-<a href="#" class="btngo"><img src="http://sns.songpa.go.kr/lib/images/main/main_sns_2_on.jpg" alt="트위터"></a>
-<button class="btnnext">&gt;</button>
-</div>
-	<div class="slide1" style="width:700px;height:407px;">
-	<ul>
-		<li><img src="http://i2.media.daumcdn.net/photo-media/201306/12/citylife/20130612112157568.jpg" height="407"/></li>
-		<li><img src="http://i2.media.daumcdn.net/photo-media/201306/12/citylife/20130612112157576.jpg" height="407"/></li>
-	</ul>
-	</div>
 	
-	
-<div id="bbb">
-<button class="btnprev">&lt;</button>
-<button class="btngo">1</button>
-<button class="btngo">2</button>
-<button class="btngo">3</button>
-<button class="btngo">4</button>
-<button class="btngo">5</button>
-<button class="btngo">6</button>
-<button class="btngo">7</button>
-<button class="btngo">8</button>
-<button class="btnnext">&gt;</button>
-</div>
-	<div class="slide2">
-	<ul>
-		<li>1</li>
-		<li>2</li>
-		<li>3</li>
-		<li>4</li>
-		<li>5</li>
-		<li>6</li>
-		<li>7</li>
-		<li>8</li>
-	</ul>
+	<div class="slide">
+		<ul>
+			<li><img src="http://i2.media.daumcdn.net/photo-media/201306/12/citylife/20130612112157568.jpg" style="width:100%;height:100%;"/></li>
+			<li>
+				<div>
+					&nbsp;-바로 이동 버튼
+				</div>
+				<div>
+					&nbsp;(기본적으로 현재 보이는 item의 이미지파일명에 마지막_off,_on을 교체시킨다 이미지가 아닐경우 opacity로 선택된 항목을 구분할수있게끔 구현)
+				</div>
+				<div>
+					&nbsp;$(".slide").slide3D({
+				</div>
+				<div>
+					&nbsp;<span class="Apple-tab-span" style="white-space:pre"></span>btnPrev : $('.prev'),
+				</div>
+				<div>
+					&nbsp;<span class="Apple-tab-span" style="white-space:pre"></span>btnNext : $('.next') &nbsp;
+				</div>
+				<div>
+					&nbsp;});
+				</div>
+				<div>
+					<br>
+				</div>
+				<div>
+					- 방향설정(앞으로 뒤로? 딱히 단어를 할게 없어서 그냥 forward)
+				</div>
+				<div>
+					&nbsp;$(".slide").slide3D({
+				</div>
+				<div>
+					&nbsp;<span class="Apple-tab-span" style="white-space:pre"></span>forward : true
+				</div>
+				<div>
+					&nbsp;});
+				</div>
+				<div>
+					<br>
+				</div>
+				<div>
+					- 롤링효과
+				</div>
+				<div>
+					<span class="Apple-tab-span" style="white-space:pre"></span>(jquery.easing.1.3.js plugin이 있어야지 됨 : easeInOutElastic,swing, 등등)
+				</div>
+				<div>
+					&nbsp;$(".slide").slide3D({
+				</div>
+				<div>
+					&nbsp;<span class="Apple-tab-span" style="white-space:pre"></span>easing : "easeInOutElastic"
+				</div>
+				<div>
+					&nbsp;});
+				</div>
+			</li>
+			<li><img src="1360421960.gif" style="width:100%;height:100%;"/></li>
+			<li>			
+				<div>
+					Slide3D
+				</div>
+				<div>
+					=======
+				</div>
+				<div>
+					<br>
+				</div>
+				<div>
+					슬라이드 3D
+				</div>
+				<div>
+					<br>
+				</div>
+				<div>
+					큐브형태의 슬라이드 입니다.
+				</div>
+				<div>
+					ie,opera등 css3미지원 브라우져에서는 그냥 밀어내는 슬라이드로 작동합니다.
+				</div>
+				<div>
+					- 자동롤링
+				</div>
+				<div>
+					&nbsp;$(".slide").slide3D({
+				</div>
+				<div>
+					&nbsp;<span class="Apple-tab-span" style="white-space:pre"></span>auto : 5000
+				</div>
+				<div>
+					&nbsp;});
+				</div>
+				<div>
+					&nbsp;
+				</div>
+				<div>
+					- 이전,다음 버튼
+				</div>
+				<div>
+					&nbsp;$(".slide").slide3D({
+				</div>
+				<div>
+					&nbsp;<span class="Apple-tab-span" style="white-space:pre"></span>btnPrev : $('.prev'),
+				</div>
+				<div>
+					&nbsp;<span class="Apple-tab-span" style="white-space:pre"></span>btnNext : $('.next') &nbsp;
+				</div>
+				<div>
+					&nbsp;});
+				</div>
+
+			</li>
+		</ul>
 	</div>
-<div id="msg"></div>
+	<div class="navi">
+		<ul class="btn_area" id="roll1">
+			<li><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li><a href="#">3</a></li>
+			<li><a href="#">4</a></li>
+		</ul>
+		<div class="control">
+			<span><a href="#" class="prev">이전 핫이슈</a></span>
+			<span><a href="#" class="pause">일시정지</a></span>
+			<span><a href="#" class="next">다음 핫이슈</a></span>
+		</div>
+	</div>
 </body>
 </html>

@@ -1,0 +1,74 @@
+.slide{
+	width: 100%;
+	height:400px;
+}
+.slide li{
+opacity:0.9;
+background-color:#6964ea;
+}
+
+.navi ul, ol, li, dl, dt, dd {
+list-style: none;
+}
+
+.navi {
+position: relative;
+bottom: 30px;
+right: 15px;
+z-index: 2;
+}
+
+.navi .btn_area {
+float: left;
+margin: 1px 10px 0 0;
+}
+
+.navi .btn_area > li {
+width: 10px;
+height: 9px;
+float: left;
+margin-right: 7px;
+text-indent: -999em;
+}
+
+.navi .btn_area > li > a {
+background: url(./spot_btn_circle.png) 0 -11px no-repeat;
+display: block;
+width: 10px;
+height: 9px;
+}
+
+.navi .control {
+display: inline-block;
+width: 50px;
+}
+
+.navi .control span {
+text-indent: -999em;
+font-size: 0;
+float: left;
+}
+
+.navi .control span a.prev {
+background-position: 0 0;
+width: 8px;
+height: 13px;
+}
+
+.navi .control span a.pause {
+background-position: -16px 0;
+width: 10px;
+height: 13px;
+}
+
+.navi .control span a.next {
+background-position: -33px 0;
+width: 8px;
+height: 13px;
+}
+
+.navi .control span a {
+background: url(./spot_control.png) no-repeat;
+display: block;
+margin-right: 8px;
+}
