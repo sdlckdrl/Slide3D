@@ -68,10 +68,9 @@
  *  });
  * 
  * 필수 jQuery plugin	
- * 			: jquery-1.7.2.js
- * 	`		  jquery.transform-0.9.4.min.js 
- * 주의사항	: jquery-1.8.2.js 에서는 jquery.transform 과 충돌난다 jquery.transform.js이 버젼업 되면 다시 적용해야할 듯
- * 			div의 width,height 를 꼭 지정해줄것
+ * 			: jquery-1.8.2.js
+ * 	`		  jquery.transform-0.9.5.min.js 
+ * 주의사항	: div의 width,height 를 꼭 지정해줄것
  **************************************************************************
  */
 (function($) {
@@ -343,11 +342,11 @@ $.fn.slide3D = function(o) {
     		},
     		btnChange : function(i){
     			if($(o.btnGo).find("img[src*=_on]").size() > 0){
-					$(o.btnGo).find("img[src]").not("eq("+(i)+")").each(function(i, o){
+					$(o.btnGo).find("img[src]").not(":eq("+(i)+")").each(function(i, o){
 						$(this).attr("src", $(this).attr("src").replace("_on", "_off"));
 					}).end().end().find("img[src]").eq(i).attr("src", $(o.btnGo).find("img[src]").eq(i).attr("src").replace("_off", "_on"));
 				}else{
-	    			$(o.btnGo).not("eq("+(browser.v-1)+")").css({"opacity":"0.5"})
+	    			$(o.btnGo).not(":eq("+(browser.v-1)+")").css({"opacity":"0.5"})
 	    			.end().eq(i).css({"opacity":"1"});
 				}
     		},
@@ -574,12 +573,12 @@ $.fn.slide3D = function(o) {
     		},
     		btnChange : function(i){
     			if($(o.btnGo).find("img[src*=_on]").size() > 0){
-					$(o.btnGo).find("img[src]").not("eq("+(i)+")").each(function(i, o){
+					$(o.btnGo).find("img[src]").not(":eq("+(i)+")").each(function(i, o){
 						$(this).attr("src", $(this).attr("src").replace("_on", "_off"));
 					})
 					.end().end().find("img[src]").eq(i).attr("src", $(o.btnGo).find("img[src]").eq(i).attr("src").replace("_off", "_on"));
 				}else{
-	    			$(o.btnGo).not("eq("+(browser.v-1)+")").css({"opacity":"0.5"})
+	    			$(o.btnGo).not(":eq("+(browser.v-1)+")").css({"opacity":"0.5"})
 	    			.end().eq(i).css({"opacity":"1"});
 				}
     		},
@@ -593,7 +592,7 @@ $.fn.slide3D = function(o) {
 			}
     	};
 
-    	if(o.useCube && ($.browser.webkit || $.browser.safari || $.browser.mozilla)){
+    	if(o.useCube && ($.browser.chrome || $.browser.safari || $.browser.mozilla)){
     		browser = html5Browser;
     	}else{
     		browser = otherBrowser;
