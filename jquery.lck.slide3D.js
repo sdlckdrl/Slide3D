@@ -100,8 +100,8 @@ $.fn.slide3D = function(o) {
     	var degree = 0;
     	var angle = -180;
         var move=0, isMove=false, beforePos=null, initPos=null;
-    	var width = $div.innerWidth();
-    	var height = $div.innerHeight();
+    	var width = $li.width();
+    	var height = $li.height();
     	var liSize = o.vertical ? height : width;		
     	var ulSize;
     	var percentPx = liSize/100;
@@ -153,19 +153,21 @@ $.fn.slide3D = function(o) {
 
 	            if(o.mouseSlide || o.touchSlide){
 	            	if(o.mouseSlide && o.touchSlide)
-			    		$ul.on("mousedown touchstart", this.DragStart)
+			    		$div.on("mousedown touchstart", this.DragStart)
 			            	.on("mousemove touchmove", this.DragMove)
 			    			.on("mouseup mouseleave touchend touchcancel", this.DragEnd);
 	            	else if(o.mouseSlide && !o.touchSlide)
-			    		$ul.on("mousedown", this.DragStart)
+			    		$div.on("mousedown", this.DragStart)
 		            	.on("mousemove", this.DragMove)
 		    			.on("mouseup mouseleave", this.DragEnd);
 	            	else if(!o.mouseSlide && o.touchSlide)
-			    		$ul.on("touchstart", this.DragStart)
+			    		$div.on("touchstart", this.DragStart)
 		            	.on("touchmove", this.DragMove)
 		    			.on("touchend touchcancel", this.DragEnd);
 	            }
-	            $(window).on("resize orientationchange", this.resizeWindow);
+
+//	            $(window).on("resize orientationchange", this.resizeWindow);
+
     		},
     		DragStart : function(e){
             	if(e.type === 'mousedown'){
@@ -180,8 +182,9 @@ $.fn.slide3D = function(o) {
     		DragMove : function(e){
     			if(!isMove) return false;
         		var pos2 = pointerEventToXY(e);
+				$("#temptemptemptemp").text("");//사파리,크롬 모바일에서 갱신이 잘안되서 임의값 넣어주니 됌... ㅡㅡ; 
         		if(o.vertical){
-        			if(Math.abs(initPos.y-pos2.y)>3){	//스크롤 문제때문에 조금움직인후 죽임
+        			if(Math.abs(initPos.y-pos2.y)>5){	//스크롤 문제때문에 조금움직인후 죽임
             			e.preventDefault();
         				e.stopPropagation();
             		}
@@ -196,7 +199,7 @@ $.fn.slide3D = function(o) {
             			rotateX: -(degree+(pos2.y-initPos.y) / percentPx)+'deg'
             		});
         		}else{
-            		if(Math.abs(initPos.x-pos2.x)>3){	//스크롤 문제때문에 조금움직인후 죽임
+            		if(Math.abs(initPos.x-pos2.x)>5){	//스크롤 문제때문에 조금움직인후 죽임
             			e.preventDefault();
         				e.stopPropagation();
             		}
@@ -213,7 +216,7 @@ $.fn.slide3D = function(o) {
         		}
     		},
     		DragEnd : function(e){
-    			if(move>3){	//a href 이벤트 이동시에 안먹히게
+    			if(move>5){	//a href 이벤트 이동시에 안먹히게
         			var $target = $(e.target).parents("a");
     				$target.one("click", function(ee){ee.preventDefault();});
     			}
@@ -225,40 +228,44 @@ $.fn.slide3D = function(o) {
             		$ul.animate({
 	            		rotateY: (o.vertical?0:degree)+'deg',
 	            		rotateX: (o.vertical?-degree:0)+'deg'
-	            	},300, o.easing, browser.endCheck);
+	            	},150, o.easing, browser.endCheck);
             	}else{
         			$ul.animate({
 	            		rotateY: (o.vertical?0:degree)+'deg',
 	            		rotateX: (o.vertical?-degree:0)+'deg'
-                	},300);
+                	},150);
             	}
 				if(o.auto){
 					browser.cycle();
 				}
     		},
     		resizeWindow : function(){
-            	width = $div.innerWidth();
-            	percentPx = width/100;
-            	$li.css({
-        			"width": width
-            	}).each(function(i, obj){
-            		$(this).css({ 
-	            		position:(i==3)?"relative":"absolute",
-	        			float: (i==3)?"none":"left",
-	        			rotateY: (o.vertical?0:(angle+=90))+"deg",
-	        			rotateX: (o.vertical?(angle+=90):0)+"deg",
-	        			translateZ: (o.vertical?height/2:width/2)+"px"
-            		});
-            	});
-            	
-            	$div.css({
-	            	origin: ['50%', '50%'],
-	            	"-webkit-perspective": (o.vertical?height*2:width*2)+"px",
-	            	"-moz-perspective": (o.vertical?height*2:width*2)+"px",
-	            	"-ms-perspective": (o.vertical?height*2:width*2)+"px",
-	            	"-o-perspective": (o.vertical?height*2:width*2)+"px",
-	                "perspective": (o.vertical?height*2:width*2)+"px"
-	            });
+				height = $li.height();
+				width = $div.innerWidth();
+				percentPx = width/100;
+				$li.css({
+					"height":height,
+					"width": width
+				}).each(function(i, obj){
+					$(this).css({ 
+						position:(i==3)?"relative":"absolute",
+						float: (i==3)?"none":"left",
+						rotateY: (o.vertical?0:(angle+=90))+"deg",
+						rotateX: (o.vertical?(angle+=90):0)+"deg",
+						translateZ: (o.vertical?height/2:width/2)+"px"
+					});
+				});
+				
+				$div.css({
+					"height":height,
+					origin: ['50%', '50%'],
+					"-webkit-perspective": (o.vertical?height*2:width*2)+"px",
+					"-moz-perspective": (o.vertical?height*2:width*2)+"px",
+					"-ms-perspective": (o.vertical?height*2:width*2)+"px",
+					"-o-perspective": (o.vertical?height*2:width*2)+"px",
+					"perspective": (o.vertical?height*2:width*2)+"px"
+				});
+    			
     		},
     		rotateCalc : function(){
     			if($ul.is(":animated"))	return false;	//애니메이션중엔 다른 이벤트를 받지 않는다.
@@ -396,7 +403,7 @@ $.fn.slide3D = function(o) {
 		            	.on("touchmove", this.DragMove)
 		    			.on("touchend touchcancel", this.DragEnd);
 	            }
-	            $(window).on("resize orientationchange", this.resizeWindow);
+	            //$(window).on("resize orientationchange", this.resizeWindow);
 	    		
     		},
     		DragStart : function(e){
@@ -413,7 +420,7 @@ $.fn.slide3D = function(o) {
     			if(!isMove) return false;
         		var pos2 = pointerEventToXY(e);
         		if(o.vertical){
-        			if(Math.abs(initPos.y-pos2.y)>3){	//스크롤 문제때문에 조금움직인후 죽임
+        			if(Math.abs(initPos.y-pos2.y)>5){	//스크롤 문제때문에 조금움직인후 죽임
             			e.preventDefault();
         				e.stopPropagation();
             		}
@@ -428,7 +435,7 @@ $.fn.slide3D = function(o) {
 	        			top: (pos2.y+degree)-initPos.y
             		});
         		}else{
-	        		if(Math.abs(initPos.x-pos2.x)>3){	//스크롤 문제때문에 조금움직인후 죽임
+	        		if(Math.abs(initPos.x-pos2.x)>5){	//스크롤 문제때문에 조금움직인후 죽임
 	        			e.preventDefault();
 	    				e.stopPropagation();
 	        		}
@@ -445,7 +452,7 @@ $.fn.slide3D = function(o) {
         		}
     		},
     		DragEnd : function(e){
-    			if(move>3){	//a href 이벤트 이동시에 안먹히게
+    			if(move>5){	//a href 이벤트 이동시에 안먹히게
         			var $target = $(e.target).parents("a");
     				$target.one("click", function(ee){ee.preventDefault();});
     			}
@@ -457,21 +464,21 @@ $.fn.slide3D = function(o) {
             		if(o.vertical){
             			$ul.animate({
     	            		top: degree+'px'
-    	            	},300, browser.endCheck);
+    	            	},150, browser.endCheck);
             		}else{
             			$ul.animate({
     	            		left: degree+'px'
-    	            	},300, browser.endCheck);
+    	            	},150, browser.endCheck);
             		}
             	}else{
             		if(o.vertical){
             			$ul.animate({
             				top: degree+'px'
-                    	},300);
+                    	},150);
             		}else{
             			$ul.animate({
             				left: degree+'px'
-                    	},300);
+                    	},150);
             		}
             	}
 				if(o.auto){
@@ -479,14 +486,15 @@ $.fn.slide3D = function(o) {
 				}
     		},
     		resizeWindow : function(){
-    			width = $div.innerWidth();
-    			height = $div.innerHeight();
+    			width = $div.width();
+				height = $li.height();
     			liSize = o.vertical ? height : width;
             	percentPx = liSize/100;
             	$li.css({
 	    			width: width+"px",
 	    			height: height+"px"
 	        	});
+            	$div.css({"height": height});
             	if(!o.vertical){
                 	degree = -(width * browser.v);
             		$ul.css({left: degree});
@@ -599,6 +607,10 @@ $.fn.slide3D = function(o) {
     	}
     	
     	browser.init();
+		$(window).on("resize orientationchange", function(){
+			setTimeout(browser.resizeWindow,300);
+		});
+
     	if(o.start>0){//처음보여줄 목록
     		browser.first(o.start);
     	}
