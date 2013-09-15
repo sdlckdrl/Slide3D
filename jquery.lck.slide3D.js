@@ -120,6 +120,7 @@ $.fn.slide3D = function(o) {
 	    			height: height
 	        	}).each(function(i, obj){
 	        		$(this).css({ 
+						display:"block",
 	            		position:(i==3)?"relative":"absolute",
 	        			float: (i==3)?"none":"left",
 	        			rotateY: (o.vertical?0:(angle+=90))+"deg",
@@ -155,7 +156,7 @@ $.fn.slide3D = function(o) {
 	            	if(o.mouseSlide && o.touchSlide)
 			    		$div.on("mousedown touchstart", this.DragStart)
 			            	.on("mousemove touchmove", this.DragMove)
-			    			.on("mouseup mouseleave touchend touchcancel", this.DragEnd);
+			    			.on("mouseup mouseleave touchend", this.DragEnd);
 	            	else if(o.mouseSlide && !o.touchSlide)
 			    		$div.on("mousedown", this.DragStart)
 		            	.on("mousemove", this.DragMove)
@@ -163,11 +164,8 @@ $.fn.slide3D = function(o) {
 	            	else if(!o.mouseSlide && o.touchSlide)
 			    		$div.on("touchstart", this.DragStart)
 		            	.on("touchmove", this.DragMove)
-		    			.on("touchend touchcancel", this.DragEnd);
+		    			.on("touchend", this.DragEnd);
 	            }
-
-//	            $(window).on("resize orientationchange", this.resizeWindow);
-
     		},
     		DragStart : function(e){
             	if(e.type === 'mousedown'){
@@ -182,12 +180,13 @@ $.fn.slide3D = function(o) {
     		DragMove : function(e){
     			if(!isMove) return false;
         		var pos2 = pointerEventToXY(e);
+				var chX = Math.abs( initPos.x - pos2.x );
+				var chY = Math.abs( initPos.y - pos2.y );
 				$("#temptemptemptemp").text("");//사파리,크롬 모바일에서 갱신이 잘안되서 임의값 넣어주니 됌... ㅡㅡ; 
         		if(o.vertical){
-        			if(Math.abs(initPos.y-pos2.y)>5){	//스크롤 문제때문에 조금움직인후 죽임
-            			e.preventDefault();
-        				e.stopPropagation();
-            		}
+					if (chY > chX ){	//안해주면 스크롤 안먹어서 가로로 움직일때만 해줌
+						e.preventDefault();
+					}
         			if(beforePos.y < pos2.y){
         				o.forward = true;
         			}else{
@@ -199,10 +198,9 @@ $.fn.slide3D = function(o) {
             			rotateX: -(degree+(pos2.y-initPos.y) / percentPx)+'deg'
             		});
         		}else{
-            		if(Math.abs(initPos.x-pos2.x)>5){	//스크롤 문제때문에 조금움직인후 죽임
-            			e.preventDefault();
-        				e.stopPropagation();
-            		}
+					if (chX > chY ){	//안해주면 스크롤 안먹어서 가로로 움직일때만 해줌
+						e.preventDefault();
+					}
         			if(beforePos.x < pos2.x){
         				o.forward = true;
         			}else{
@@ -309,9 +307,17 @@ $.fn.slide3D = function(o) {
 	    				}
 	    			}
 	    			$ul.animate({
+	        			rotateY: degree-30+"deg",
+	    	        	rotateX: degree-30+"deg",
+	            		scale: [0.3, 0.3]
+	            	},o.speed/2).animate({
+	        			rotateY: degree+30+"deg",
+	    	        	rotateX: degree+30+"deg",
+	            		scale: [0.1, 0.1]
+	            	},o.speed/2).animate({
 	        			rotateY: (o.vertical)?0:degree+"deg",
 	    	        	rotateX: (o.vertical)?-degree:0+"deg",
-	            		scale: [0.1, 0.1]
+	            		scale: [0.3, 0.3]
 	            	},o.speed/2).animate({
 	            		scale: [0.75, 0.75]
 	            	},o.speed/2, browser.endCheck);
@@ -378,6 +384,7 @@ $.fn.slide3D = function(o) {
     			ulSize = liSize * $li.size();
 		    	
     			$li.css({
+					display:"block",
 	    			overflow: "hidden",
 	    			width: width+"px",
 	    			height:height+"px",
@@ -393,7 +400,7 @@ $.fn.slide3D = function(o) {
 	            	if(o.mouseSlide && o.touchSlide)
 			    		$ul.on("mousedown touchstart", this.DragStart)
 			            	.on("mousemove touchmove", this.DragMove)
-			    			.on("mouseup mouseleave touchend touchcancel", this.DragEnd);
+			    			.on("mouseup mouseleave touchend", this.DragEnd);
 	            	else if(o.mouseSlide && !o.touchSlide)
 			    		$ul.on("mousedown", this.DragStart)
 		            	.on("mousemove", this.DragMove)
@@ -401,10 +408,8 @@ $.fn.slide3D = function(o) {
 	            	else if(!o.mouseSlide && o.touchSlide)
 			    		$ul.on("touchstart", this.DragStart)
 		            	.on("touchmove", this.DragMove)
-		    			.on("touchend touchcancel", this.DragEnd);
+		    			.on("touchend", this.DragEnd);
 	            }
-	            //$(window).on("resize orientationchange", this.resizeWindow);
-	    		
     		},
     		DragStart : function(e){
             	if(e.type === 'mousedown'){
@@ -419,11 +424,12 @@ $.fn.slide3D = function(o) {
     		DragMove : function(e){
     			if(!isMove) return false;
         		var pos2 = pointerEventToXY(e);
+				var chX = Math.abs( initPos.x - pos2.x );
+				var chY = Math.abs( initPos.y - pos2.y );
         		if(o.vertical){
-        			if(Math.abs(initPos.y-pos2.y)>5){	//스크롤 문제때문에 조금움직인후 죽임
-            			e.preventDefault();
-        				e.stopPropagation();
-            		}
+        			if (chY > chX ){	//안해주면 스크롤 안먹어서 가로로 움직일때만 해줌
+						e.preventDefault();
+					}
         			if(beforePos.y < pos2.y){
         				o.forward = true;
         			}else{
@@ -435,10 +441,9 @@ $.fn.slide3D = function(o) {
 	        			top: (pos2.y+degree)-initPos.y
             		});
         		}else{
-	        		if(Math.abs(initPos.x-pos2.x)>5){	//스크롤 문제때문에 조금움직인후 죽임
-	        			e.preventDefault();
-	    				e.stopPropagation();
-	        		}
+	        		if (chX > chY ){	//안해주면 스크롤 안먹어서 가로로 움직일때만 해줌
+						e.preventDefault();
+					}
 	    			if(beforePos.x < pos2.x){
 	    				o.forward = true;
 	    			}else{
@@ -600,9 +605,11 @@ $.fn.slide3D = function(o) {
 			}
     	};
 
-    	if(o.useCube && ($.browser.chrome || $.browser.safari || $.browser.mozilla)){
+    	if(o.useCube && ($.browser.chrome || $.browser.mozilla)){
     		browser = html5Browser;
-    	}else{
+    	}else if(o.useCube && $.browser.safari && $.browser.version > 534.13){
+			browser = html5Browser;
+		}else{
     		browser = otherBrowser;
     	}
     	
