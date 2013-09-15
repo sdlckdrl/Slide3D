@@ -100,8 +100,8 @@ $.fn.slide3D = function(o) {
     	var degree = 0;
     	var angle = -180;
         var move=0, isMove=false, beforePos=null, initPos=null;
-    	var width = $li.width();
-    	var height = $li.height();
+    	var width = $div.width();
+    	var height = $div.height();
     	var liSize = o.vertical ? height : width;		
     	var ulSize;
     	var percentPx = liSize/100;
@@ -135,20 +135,12 @@ $.fn.slide3D = function(o) {
 	            	"margin": "0px", 
 	            	"padding": "0px", 
 	            	"list-style-type": "none",
-	            	"-webkit-transform-style" : "preserve-3d",
-	            	"-moz-transform-style" : "preserve-3d",
-	            	"-ms-transform-style" : "preserve-3d",
-	            	"-o-transform-style" : "preserve-3d",
 	            	"transform-style" : "preserve-3d",
 	            	scale: [0.75, 0.75]
 	            });
 	            $div.css({
 	            	origin: ['50%', '50%'],
 	            	"z-index": "2",
-	            	"-webkit-perspective": (o.vertical?height*2:width*2)+"px",
-	            	"-moz-perspective": (o.vertical?height*2:width*2)+"px",
-	            	"-ms-perspective": (o.vertical?height*2:width*2)+"px",
-	            	"-o-perspective": (o.vertical?height*2:width*2)+"px",
 	                "perspective": (o.vertical?height*2:width*2)+"px"
 	            });
 
@@ -238,12 +230,12 @@ $.fn.slide3D = function(o) {
 				}
     		},
     		resizeWindow : function(){
-				height = $li.height();
-				width = $div.innerWidth();
+				height = $div.height();
+				width = $div.width();
 				percentPx = width/100;
 				$li.css({
-					"height":height,
-					"width": width
+					"width": width,
+					"height":height
 				}).each(function(i, obj){
 					$(this).css({ 
 						position:(i==3)?"relative":"absolute",
@@ -257,10 +249,6 @@ $.fn.slide3D = function(o) {
 				$div.css({
 					"height":height,
 					origin: ['50%', '50%'],
-					"-webkit-perspective": (o.vertical?height*2:width*2)+"px",
-					"-moz-perspective": (o.vertical?height*2:width*2)+"px",
-					"-ms-perspective": (o.vertical?height*2:width*2)+"px",
-					"-o-perspective": (o.vertical?height*2:width*2)+"px",
 					"perspective": (o.vertical?height*2:width*2)+"px"
 				});
     			
@@ -492,7 +480,7 @@ $.fn.slide3D = function(o) {
     		},
     		resizeWindow : function(){
     			width = $div.width();
-				height = $li.height();
+				height = $div.height();
     			liSize = o.vertical ? height : width;
             	percentPx = liSize/100;
             	$li.css({
